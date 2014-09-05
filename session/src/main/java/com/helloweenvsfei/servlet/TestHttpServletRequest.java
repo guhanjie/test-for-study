@@ -59,8 +59,9 @@ public class TestHttpServletRequest extends HttpServlet {
 	
 		Set<String> keySet = infomap.keySet();
 		for(String key : keySet) {
-			System.out.println(key+" = "+infomap.get(key));
+//			System.out.println(key+" = "+infomap.get(key));
 		}
+		System.out.println(Thread.currentThread().getId());
 		response.getWriter().write(infomap.toString());
 	}
 
