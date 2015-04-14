@@ -28,6 +28,7 @@ import com.glodon.paas.boss.filter.exception.AccessDeniedException;
 
 /**
  * Boss Filter
+ * 这是一个权限系统的过滤器
  * @author Guhanjie on 2014-08-15 12:59:12
  */
 @Component("bossFilter")

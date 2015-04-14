@@ -7,8 +7,9 @@
   <version>0.0.1-SNAPSHOT</version>
   
   <modules>
-  	<module>ehcache</module>
+  	<module>components</module>
     <module>network</module>
+    <module>javaee</module>
   </modules>
   
   <properties>

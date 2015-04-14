@@ -5,8 +5,8 @@
     <artifactId>test-for-study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>ehcache</artifactId>
-  <description>Starting to study ehcache</description>
+  <artifactId>components</artifactId>
+  <description>Here are so many use cases of common components powered from java open source</description>
   <dependencies>
   	<dependency>
   		<groupId>net.sf.ehcache</groupId>

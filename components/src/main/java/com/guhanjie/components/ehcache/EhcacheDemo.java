@@ -1,4 +1,4 @@
-package com.guhanjie.ehcache;
+package com.guhanjie.components.ehcache;
 
 import java.net.URL;
 
@@ -52,7 +52,7 @@ class ThreadAction extends Thread {
 			Thread.sleep(3000);
 			Cache cache = manager.getCache(cacheName);
 			Element element = cache.get("name");
-			System.out.println("´Ó»º´æÖÐÈ¡µÃÊý¾Ý:" + element.getValue());
+			System.out.println("ï¿½Ó»ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½:" + element.getValue());
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
