@@ -1,4 +1,4 @@
-package com.guhanjie.network;
+package com.guhanjie.network.http;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.apache.http.NameValuePair;
 
-public class HttpClientTest {
+public class HttpClientDemo {
 	public static String url = "https://openapi.youku.com/v2/oauth2/authorize?client_id=cc55ef664c3a7540&response_type=code&redirect_uri=http%3A%2F%2Fyun.glodon.com&state=xyz";
 
 	public static void main(String[] args) throws Exception {

@@ -1,20 +1,19 @@
-import java.net.InetAddress;  
-import java.net.UnknownHostException; 
+package com.guhanjie.network;
 
-public class Test {
-	public static void main(String[] args) {
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-		System.out.println(getLocalHostIp());
-	}
+public class LocalHostInfoUtil {
+    public static void main(String[] args) {
+        System.out.println(getLocalHostIp());
+    }
 
-	public static String getLocalHostIp() {
-		String ip = "";
-		try   
-        {  
-			ip = InetAddress.getLocalHost().getHostAddress();
-		} catch (UnknownHostException e) {  
-              
-        } 
+    public static String getLocalHostIp() {
+        String ip = "";
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        }
+        catch (UnknownHostException e) {}
         return ip;
-	}
+    }
 }
