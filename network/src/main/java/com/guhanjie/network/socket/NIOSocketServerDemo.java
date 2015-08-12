@@ -1,3 +1,5 @@
+package com.guhanjie.network.socket;
+
 import java.io.ByteArrayOutputStream;  
 import java.io.IOException;  
 import java.net.InetSocketAddress;  
@@ -9,46 +11,45 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;  
 import java.util.Iterator;
 
-public class SocketServerByNIO {
+public class NIOSocketServerDemo {
 
     public static void main(String args[]) {
         ServerSocketChannel serverChannel = null;
         try { 
-            //»ñÈ¡Ò»¸öServerSocketÍ¨µÀ
+            //è·å–ä¸€ä¸ªServerSocketé€šé“
             serverChannel = ServerSocketChannel.open();
             serverChannel.configureBlocking(false);
             serverChannel.socket().bind(new InetSocketAddress(4700));
-            //»ñÈ¡Í¨µÀ¹ÜÀíÆ÷
+            //è·å–é€šé“ç®¡ç†å™¨
             Selector selector = Selector.open();
-            //½«Í¨µÀ¹ÜÀíÆ÷ÓëÍ¨µÀ°ó¶¨£¬²¢Îª¸ÃÍ¨µÀ×¢²áSelectionKey.OP_ACCEPTÊÂ¼ş£¬
-            //Ö»ÓĞµ±¸ÃÊÂ¼şµ½´ïÊ±£¬Selector.select()»á·µ»Ø£¬·ñÔòÒ»Ö±×èÈû¡£
+            //å°†é€šé“ç®¡ç†å™¨ä¸é€šé“ç»‘å®šï¼Œå¹¶ä¸ºè¯¥é€šé“æ³¨å†ŒSelectionKey.OP_ACCEPTäº‹ä»¶ï¼Œåªæœ‰å½“è¯¥äº‹ä»¶åˆ°è¾¾æ—¶ï¼ŒSelector.select()ä¼šè¿”å›ï¼Œå¦åˆ™ä¸€ç›´é˜»å¡ã€‚
             serverChannel.register(selector, SelectionKey.OP_ACCEPT);
-            System.out.println("·şÎñÆ÷¶ËÆô¶¯³É¹¦");     
-            //´´½¨¶ÁÈ¡Êı¾İ»º³åÆ÷
+            System.out.println("æœåŠ¡å™¨ç«¯å¯åŠ¨æˆåŠŸ");     
+            //åˆ›å»ºè¯»å–æ•°æ®ç¼“å†²å™¨
             ByteBuffer buffer = ByteBuffer.allocate(1024);      
-            //Ê¹ÓÃÂÖÑ¯·ÃÎÊselector
+            //ä½¿ç”¨è½®è¯¢è®¿é—®selector
             while(true){
-                //µ±ÓĞ×¢²áµÄÊÂ¼şµ½´ïÊ±£¬·½·¨·µ»Ø£¬·ñÔò×èÈû¡£
+                //å½“æœ‰æ³¨å†Œçš„äº‹ä»¶åˆ°è¾¾æ—¶ï¼Œæ–¹æ³•è¿”å›ï¼Œå¦åˆ™é˜»å¡ã€‚
                 selector.select();            
-                //»ñÈ¡selectorÖĞµÄµü´úÆ÷£¬Ñ¡ÖĞÏîÎª×¢²áµÄÊÂ¼ş
+                //è·å–selectorä¸­çš„è¿­ä»£å™¨ï¼Œé€‰ä¸­é¡¹ä¸ºæ³¨å†Œçš„äº‹ä»¶
                 Iterator<SelectionKey> ite=selector.selectedKeys().iterator();            
                 while(ite.hasNext()){
                     SelectionKey key = ite.next();
-                    //É¾³ıÒÑÑ¡key£¬·ÀÖ¹ÖØ¸´´¦Àí
+                    //åˆ é™¤å·²é€‰keyï¼Œé˜²æ­¢é‡å¤å¤„ç†
                     ite.remove();
-                    //¿Í»§¶ËÇëÇóÁ¬½ÓÊÂ¼ş
+                    //å®¢æˆ·ç«¯è¯·æ±‚è¿æ¥äº‹ä»¶
                     if(key.isAcceptable()){
                         ServerSocketChannel server = (ServerSocketChannel)key.channel();
-                        //»ñµÃ¿Í»§¶ËÁ¬½ÓÍ¨µÀ
+                        //è·å¾—å®¢æˆ·ç«¯è¿æ¥é€šé“
                         SocketChannel channel = server.accept();
                         channel.configureBlocking(false);
-                        //ÔÚÓë¿Í»§¶ËÁ¬½Ó³É¹¦ºó£¬Îª¿Í»§¶ËÍ¨µÀ×¢²áSelectionKey.OP_READÊÂ¼ş¡£
+                        //åœ¨ä¸å®¢æˆ·ç«¯è¿æ¥æˆåŠŸåï¼Œä¸ºå®¢æˆ·ç«¯é€šé“æ³¨å†ŒSelectionKey.OP_READäº‹ä»¶ã€‚
                         channel.register(selector, SelectionKey.OP_READ);                    
-                        System.out.println("¿Í»§¶ËÇëÇóÁ¬½ÓÊÂ¼ş");
-                    }else if(key.isReadable()){//ÓĞ¿É¶ÁÊı¾İÊÂ¼ş
-                        //Çå¿Õbuffer
+                        System.out.println("å®¢æˆ·ç«¯è¯·æ±‚è¿æ¥äº‹ä»¶");
+                    }else if(key.isReadable()){//æœ‰å¯è¯»æ•°æ®äº‹ä»¶
+                        //æ¸…ç©ºbuffer
                         buffer.clear();
-                        //»ñÈ¡¿Í»§¶Ë´«ÊäÊı¾İ¿É¶ÁÈ¡ÏûÏ¢Í¨µÀ¡£
+                        //è·å–å®¢æˆ·ç«¯ä¼ è¾“æ•°æ®å¯è¯»å–æ¶ˆæ¯é€šé“ã€‚
                         SocketChannel channel = (SocketChannel)key.channel();
                         int read = channel.read(buffer);
                         buffer.flip();

@@ -1,3 +1,5 @@
+package com.guhanjie.network.socket;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;  
@@ -7,7 +9,7 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;  
 import java.nio.channels.SocketChannel;  
 
-public class SocketClientByNIO {
+public class NIOSocketClientDemo {
 
     public static void main(String args[]) {
         SocketChannel socketChannel = null;
