@@ -115,7 +115,7 @@ public class SocketClientUtil {
      * @param port
      * @param msg
      */
-    public static String send(String ip, int port) {
+    public static String receive(String ip, int port) {
         Socket client = null;
         BufferedReader in = null;
         try {
