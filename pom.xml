@@ -10,6 +10,7 @@
   	<module>components</module>
     <module>network</module>
     <module>javaee</module>
+    <module>spring</module>
   </modules>
   
   <properties>
