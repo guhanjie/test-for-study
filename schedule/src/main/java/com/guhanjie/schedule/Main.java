@@ -11,6 +11,7 @@ import static org.quartz.JobBuilder.newJob;
 import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
+import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -38,20 +39,34 @@ public class Main {
     public static void main(String[] args) throws SchedulerException, InterruptedException {
 
         // Grab the Scheduler instance from the Factory
-        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-        
+        StdSchedulerFactory sf = new StdSchedulerFactory();
+        sf.initialize("quartz.properties");
+        Scheduler scheduler = sf.getScheduler();
+        JobDataMap jdm = new JobDataMap();
+        jdm.put("user", new User("guhanjie", 27));
         // define the job and tie it to our HelloJob class
         JobDetail job = newJob(SimpleJob.class)
                                     .withIdentity("job1", "group1")
+                                    .usingJobData("count", 0)
+                                    .usingJobData(jdm)
+                                    .storeDurably()
                                     .build();
 
-        // Trigger the job to run now, and then repeat every 40 seconds
+        // Trigger the job to run now, and then repeat every 1 seconds
         Trigger trigger = newTrigger()
                                     .withIdentity("trigger1", "group1")
                                     .startNow()
                                           .withSchedule(simpleSchedule()
-                                            .withIntervalInSeconds(1)
-                                            .repeatForever())            
+                                            .withIntervalInSeconds(5)
+                                            .withRepeatCount(100)
+//                                            .withMisfireHandlingInstructionFireNow()
+//                                            .withMisfireHandlingInstructionIgnoreMisfires()
+//                                            .withMisfireHandlingInstructionNextWithExistingCount()
+                                            .withMisfireHandlingInstructionNextWithRemainingCount()
+//                                            .withMisfireHandlingInstructionNowWithExistingCount()
+//                                            .withMisfireHandlingInstructionNowWithRemainingCount()
+                                            )
+//                                            .repeatForever())            
                                     .build();
 
         // Tell quartz to schedule the job using our trigger
@@ -60,5 +75,11 @@ public class Main {
         System.out.println("starting to schedule...");
         scheduler.start();
 
+        Thread.sleep(3000);
+        System.out.println("================Pausing===============");
+        scheduler.pauseAll();
+        Thread.sleep(13000);
+        System.out.println("================Resuming===============");
+        scheduler.resumeAll();
     }
 }
