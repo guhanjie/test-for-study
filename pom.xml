@@ -11,6 +11,7 @@
     <module>network</module>
     <module>javaee</module>
     <module>schedule</module>
+    <module>spring</module>
   </modules>
   
   <properties>

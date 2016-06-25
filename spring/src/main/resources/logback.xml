@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration debug="false">
+	<property resource="env.properties" />
+	<property name="PROJECT_NAME" value="owl-console" />
+
+	<!-- 存放日志文件的路径 -->
+	<property name="owlConsoleDir" value="${LOG_HOME}/${PROJECT_NAME}" />
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{HH:mm:ss.SSS} [%thread] %-5level [%logger{36}] - %msg%n
+			</pattern>
+			<immediateFlush>false</immediateFlush>
+		</encoder>
+	</appender>
+
+
+	<!-- error -->
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
